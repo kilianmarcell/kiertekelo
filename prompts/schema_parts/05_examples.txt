@@ -1,0 +1,2 @@
+Example for 'Shuffle': ['shuffle', 'Collections', 'random', 'swap', 'mix', 'order', 'shufle', 'Collections\\.shuffle', 'Math\\.random', 'Random\\s+r'].
+Example for 'Storage': ['List', 'ArrayList', 'cards', 'elements', 'SomeList', 'T\\[\\]', 'Array', 'Vector', 'ArrayList<.*>'].

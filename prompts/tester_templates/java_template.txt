@@ -1,0 +1,46 @@
+import java.util.*;
+import java.lang.reflect.*;
+
+public class Tester {
+    static int totalPts = 0;
+
+    @FunctionalInterface
+    interface TestRunnable {
+        void run() throws Throwable;
+    }
+
+    public static void main(String[] args) {
+        try {
+            Class<?> clazz = Class.forName("__CLASS_NAME__");
+__BODY__
+        } catch (Exception e) {}
+        System.out.println("TOTAL_SCORE: " + totalPts + "/100");
+    }
+    private static void runTest(String name, int weight, TestRunnable t) {
+        try { 
+            t.run(); 
+            totalPts += weight; 
+            System.out.println("[TEST] " + name + ": PASSED");
+        } catch (Throwable e) {
+            System.out.println("[TEST] " + name + ": FAILED (" + e.getMessage() + ")");
+        }
+    }
+    static class ReflectionHelper {
+        public static Object newInstance(Class<?> c, Class<?> pType, Object pVal) throws Exception {
+            Constructor<?> cons = c.getDeclaredConstructor(pType);
+            cons.setAccessible(true); return cons.newInstance(pVal);
+        }
+        public static Method findMethod(Class<?> c, String name, Class<?>... params) throws Exception {
+            for (Method m : c.getDeclaredMethods()) 
+                if (m.getName().equalsIgnoreCase(name)) 
+                    { m.setAccessible(true); return m; }
+            throw new Exception("Not found");
+        }
+        public static Field findField(Class<?> c, Class<?> type) throws Exception {
+            for (Field f : c.getDeclaredFields()) 
+                if (type.isAssignableFrom(f.getType())) 
+                    { f.setAccessible(true); return f; }
+            throw new Exception("Not found");
+        }
+    }
+}

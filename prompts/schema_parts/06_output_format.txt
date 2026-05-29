@@ -1,0 +1,2 @@
+Return the result as a JSON object with 'task_name' and 'categories' (list of {id, name, weight, patterns}).
+The result must be a valid JSON.

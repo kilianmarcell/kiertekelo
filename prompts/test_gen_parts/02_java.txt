@@ -1,0 +1,6 @@
+Each test case must use Reflection.
+CRITICAL: Always use 'ReflectionHelper.findField(c, List.class)' to find the internal storage.
+CRITICAL: DO NOT use 'Card' or other custom classes. Use 'String' for test data.
+CRITICAL: DO NOT use 'assert'. Use 'if (!condition) throw new Exception("fail");'
+### Example (Java logic):
+"Class<?> c = Class.forName("__CLASS_NAME__"); Object inst = ReflectionHelper.newInstance(c, List.class, new ArrayList()); ... if (!condition) throw new Exception();"

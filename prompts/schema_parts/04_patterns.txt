@@ -1,0 +1,6 @@
+3. Patterns MUST include:
+   - Core keywords and synonyms.
+   - Common student typos (e.g., 'retrun', 'privte', 'lenght', 'arraylist').
+   - Flexible method signatures (e.g., 'public\\s+void\\s+prepare' or just 'prepare\\s*\(').
+   - Partial implementation hints (e.g., if a method is missing, look for variables that would be used in it).
+   - Different naming conventions (camelCase, snake_case, PascalCase).

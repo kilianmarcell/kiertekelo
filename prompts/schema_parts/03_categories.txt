@@ -1,0 +1,3 @@
+Break down the task into 5 logical categories. For each category:
+1. Provide a name and weight (sum of weights = 100).
+2. Generate 15-20 SHORT, ATOMIC regex patterns that indicate progress.

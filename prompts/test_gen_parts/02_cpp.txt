@@ -1,0 +1,6 @@
+CRITICAL: The student class is a template. Use a concrete type like '__CLASS_NAME__<int, 5>' for testing.
+CRITICAL: ONLY test methods explicitly mentioned in the task (insert, contains, size, capacity). DO NOT add methods like 'remove'.
+CRITICAL: Use 'try-catch' to verify if exceptions are thrown as required.
+CRITICAL: DO NOT use 'assert'. Use 'if (!(condition)) throw "fail";'
+### Example (C++ logic):
+"__CLASS_NAME__<int, 5> s; s.insert(10); if (s.size() != 1) throw \"wrong size\";"

@@ -1,0 +1,28 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <stdexcept>
+
+// Global pts for simplicity in old compilers
+int totalPts = 0;
+
+#define RUN_TEST(name, weight, ...) \
+    try { \
+        { __VA_ARGS__ } \
+        totalPts += weight; \
+        std::cout << "[TEST] " << name << ": PASSED" << std::endl; \
+    } catch (const std::exception& e) { \
+        std::cout << "[TEST] " << name << ": FAILED (" << e.what() << ")" << std::endl; \
+    } catch (const char* e) { \
+        std::cout << "[TEST] " << name << ": FAILED (" << e << ")" << std::endl; \
+    } catch (...) { \
+        std::cout << "[TEST] " << name << ": FAILED (Unknown error)" << std::endl; \
+    }
+
+int main() {
+    try {
+__BODY__
+    } catch (...) {}
+    std::cout << "TOTAL_SCORE: " << totalPts << "/100" << std::endl;
+    return 0;
+}

@@ -1,0 +1,2 @@
+Create a 'Super-Regex' grading schema for a programming task. This schema will be used for static code analysis where high correlation with human grading is critical.
+The goal is to cast a VERY wide net so that even partial, slightly broken code gets recognized.
