@@ -1,0 +1,57 @@
+{
+  "Kovacs_Peter_ABC123": {
+    "url": "https://jporta.inf.elte.hu/Kovacs_Peter_ABC123",
+    "codes": [
+      "Submit: public class Main {\n    public static int factorial(int n) {\n        if (n <= 1) return 1;\n        return n * factorial(n - 1);\n    }\n    public static void main(String[] args) {\n        System.out.println(factorial(5));\n    }\n}"
+    ],
+    "results": {
+      "man": {
+        "point": 5
+      }
+    }
+  },
+  "Nagy_Anna_DEF456": {
+    "url": "https://jporta.inf.elte.hu/Nagy_Anna_DEF456",
+    "codes": [
+      "Submit: public class Main {\n    int factorial(int n) {\n        if (n == 0) return 1;\n        return n * factorial(n - 1);\n    }\n    public static void main(String[] args) {\n        Main m = new Main();\n        System.out.println(m.factorial(5));\n    }\n}"
+    ],
+    "results": {
+      "man": {
+        "point": 5
+      }
+    }
+  },
+  "Szabo_Gabor_GHI789": {
+    "url": "https://jporta.inf.elte.hu/Szabo_Gabor_GHI789",
+    "codes": [
+      "Submit: public class Main {\n    public static int factorial(int n) {\n        // Hiányzó báziseset, ami StackOverflow hibát okoz\n        return n * factorial(n - 1);\n    }\n    public static void main(String[] args) {\n        System.out.println(factorial(5));\n    }\n}"
+    ],
+    "results": {
+      "man": {
+        "point": 1
+      }
+    }
+  },
+  "Toth_Eszter_JKL012": {
+    "url": "https://jporta.inf.elte.hu/Toth_Eszter_JKL012",
+    "codes": [
+      "Submit: public class Main {\n    public static int factorial(int n) {\n        int res = 1;\n        for (int i=1; i<=n; i++) {\n            res = res * i // Szintaktikai hiba: hiányzó pontosvessző\n        }\n        return res;\n    }\n    public static void main(String[] args) {\n        System.out.println(factorial(5));\n    }\n}"
+    ],
+    "results": {
+      "man": {
+        "point": 3
+      }
+    }
+  },
+  "Kiss_Laszlo_MNO345": {
+    "url": "https://jporta.inf.elte.hu/Kiss_Laszlo_MNO345",
+    "codes": [
+      "Submit: import java.util.stream.IntStream;\n\npublic class Main {\n    public static int factorial(int n) {\n        if (n <= 1) return 1;\n        // Feleslegesen bonyolult, stream-alapú megoldás, de helyes\n        return IntStream.rangeClosed(2, n).reduce(1, (x, y) -> x * y);\n    }\n    public static void main(String[] args) {\n        System.out.println(factorial(5));\n    }\n}"
+    ],
+    "results": {
+      "man": {
+        "point": 5
+      }
+    }
+  }
+}

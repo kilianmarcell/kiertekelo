@@ -1,0 +1,7 @@
+Készíts egy Main nevű publikus Java osztályt!
+
+Feladatok:
+1. Írj egy publikus, statikus `factorial` nevű metódust az osztályon belül! A metódus egy `n` egész számot (int) kapjon paraméterül, és térjen vissza `n` faktoriálisával (szintén int). 
+   (Emlékeztető: a faktoriális az 1-től n-ig terjedő egész számok szorzata. A 0 és az 1 faktoriálisa 1.)
+2. A `main` metódusban hívd meg a `factorial` metódust 5-ös paraméterrel!
+3. Az eredményt írasd ki a standard kimenetre (konzolra)!
