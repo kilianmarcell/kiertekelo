@@ -1,0 +1,57 @@
+{
+  "Kovacs_Peter_ABC123": {
+    "url": "https://jporta.inf.elte.hu/Kovacs_Peter_ABC123",
+    "codes": [
+      "Submit: #include <iostream>\nint factorial(int n) {\n    if (n <= 1) return 1;\n    return n * factorial(n - 1);\n}\nint main() {\n    std::cout << factorial(5) << std::endl;\n    return 0;\n}"
+    ],
+    "results": {
+      "man": {
+        "point": 5
+      }
+    }
+  },
+  "Nagy_Anna_DEF456": {
+    "url": "https://jporta.inf.elte.hu/Nagy_Anna_DEF456",
+    "codes": [
+      "Submit: #include <iostream>\nclass MathUtils {\npublic:\n    int factorial(int n) {\n        if (n == 0) return 1;\n        return n * factorial(n - 1);\n    }\n};\nint main() {\n    MathUtils m;\n    std::cout << m.factorial(5) << std::endl;\n    return 0;\n}"
+    ],
+    "results": {
+      "man": {
+        "point": 5
+      }
+    }
+  },
+  "Szabo_Gabor_GHI789": {
+    "url": "https://jporta.inf.elte.hu/Szabo_Gabor_GHI789",
+    "codes": [
+      "Submit: #include <iostream>\nint factorial(int n) {\n    // Hiányzó báziseset, ami végtelen rekurziót okoz\n    return n * factorial(n - 1);\n}\nint main() {\n    std::cout << factorial(5) << std::endl;\n    return 0;\n}"
+    ],
+    "results": {
+      "man": {
+        "point": 1
+      }
+    }
+  },
+  "Toth_Eszter_JKL012": {
+    "url": "https://jporta.inf.elte.hu/Toth_Eszter_JKL012",
+    "codes": [
+      "Submit: #include <iostream>\nint factorial(int n) {\n    int res = 1;\n    for (int i=1; i<=n; i++) {\n        res = res * i // Szintaktikai hiba: hiányzó pontosvessző\n    }\n    return res;\n}\nint main() {\n    std::cout << factorial(5) << std::endl;\n    return 0;\n}"
+    ],
+    "results": {
+      "man": {
+        "point": 3
+      }
+    }
+  },
+  "Kiss_Laszlo_MNO345": {
+    "url": "https://jporta.inf.elte.hu/Kiss_Laszlo_MNO345",
+    "codes": [
+      "Submit: #include <iostream>\nint factorial(int n) {\n    if (n <= 1) return 1;\n    int res = 1;\n    for (int i = 2; i <= n; ++i) {\n        res *= i;\n    }\n    return res;\n}\nint main() {\n    std::cout << factorial(5) << std::endl;\n    return 0;\n}"
+    ],
+    "results": {
+      "man": {
+        "point": 5
+      }
+    }
+  }
+}

@@ -14,7 +14,6 @@ _SOMELIST_PATH = os.path.join(_ROOT_DIR, "prompts", "tester_templates", "SomeLis
 def run_java_test_script(
     script_content: str, student_code: str = "", timeout: int = 15
 ) -> str:
-    """Compiles and runs Java student code against a provided Tester.java script."""
     with tempfile.TemporaryDirectory() as tmp_dir:
         if "SomeList" in script_content or "SomeList" in student_code:
             somelist_path = os.path.join(tmp_dir, "SomeList.java")

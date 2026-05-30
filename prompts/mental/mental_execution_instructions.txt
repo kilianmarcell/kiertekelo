@@ -8,21 +8,10 @@ __TEST_CASES__
 
 Instructions:
 1. Go through each test case one by one.
-2. Analyze the student's code and determine if the test would PASS or FAIL.
-3. Intent over Syntax: If there is a minor syntax error (e.g., missing ;) but the logic is clearly correct, award the points but mention the error in the comments.
-4. If the code is not compilable, try to infer the student's intent but penalize major logical flaws.
-
-The output must be strictly in JSON format as follows:
-{
-  "test_results": [
-    {
-      "id": 1,
-      "status": "PASS" or "FAIL",
-      "comment": "Brief explanation of the result",
-      "achieved_weight": (number, between 0 and the test weight)
-    },
-    ...
-  ],
-  "overall_evaluation": "A summary of the student's performance",
-  "final_percentage": (number between 0 and 100)
-}
+2. Mentally execute the student's code. Produce a detailed step-by-step trace of how the code handles the input for this test case.
+3. Determine if the test case conceptually PASSED or FAILED based on your trace.
+4. EXTREME LENIENCY: These are beginner students. Intent over Syntax. If there is a minor syntax error (e.g., missing semicolon, slightly wrong type, missing imports) but the logical intent is clearly correct, award a PASS. DO NOT penalize missing edge-case handling (like checking for nulls or bounds) unless the task description explicitly asked for it. Assume the "happy path" inputs whenever possible.
+5. Provide your full mental trace and reasoning.
+6. Finally, on a new line at the very end of your response, output exactly:
+FINAL_PERCENTAGE: <number>
+Where <number> is an integer from 0 to 100 representing the exact percentage of passed tests out of total tests.

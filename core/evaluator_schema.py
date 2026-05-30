@@ -1,22 +1,11 @@
 import os
 import json
-import re
-from typing import Optional, Dict
-from langchain_openai import ChatOpenAI
+from typing import Dict
 from langchain_core.messages import SystemMessage, HumanMessage
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser
 from langchain_community.callbacks import get_openai_callback
 
-from settings import (
-    OPENROUTER_API_KEY,
-    OPENROUTER_BASE_URL,
-    MODEL,
-    MODEL_MINI,
-    LLM_TEMPERATURE,
-    LLM_TOP_P,
-    LLM_MAX_TOKENS,
-)
 from .response_models import TestScriptSchema
 from .fallback_schema import get_fallback_grading_schema
 

@@ -17,7 +17,6 @@ def _find_cpp_compiler() -> str:
 def run_cpp_test_script(
     script_content: str, student_code: str = "", timeout: int = 15
 ) -> str:
-    """Compiles and runs C++ code (student + test script) and returns the output."""
     with tempfile.TemporaryDirectory() as tmp_dir:
         cpp_path = os.path.join(tmp_dir, "test.cpp")
         exe_path = os.path.join(tmp_dir, "test.exe")

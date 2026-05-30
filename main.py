@@ -18,10 +18,16 @@ def main():
         return
 
     print("\nEvaluation Mode:")
-    print("  1 - Simple AI evaluation")
-    print("  2 - Universal Testcase-based evaluation (Dynamic Schema)")
-    mode_choice = input("Choice (1/2): ")
-    eval_mode = "original" if mode_choice == "1" else "testcases"
+    print("  1 - Simple AI evaluation (original)")
+    print("  2 - Universal Testcase-based evaluation (testcases)")
+    print("  3 - Mental Execution evaluation (mental)")
+    mode_choice = input("Choice (1/2/3): ")
+    if mode_choice == "1":
+        eval_mode = "original"
+    elif mode_choice == "3":
+        eval_mode = "mental"
+    else:
+        eval_mode = "testcases"
 
     evaluator = LangChainCodeEvaluator()
     students_data = load_students_from_json(str(json_path))

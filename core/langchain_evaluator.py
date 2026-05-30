@@ -1,44 +1,18 @@
-import os
-import json
-import re
 from typing import Optional, Dict
-from langchain_openai import ChatOpenAI
-from langchain_core.messages import SystemMessage, HumanMessage
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import PydanticOutputParser
-from langchain_community.callbacks import get_openai_callback
+from pathlib import Path
 
 from settings import (
     OPENROUTER_API_KEY,
-    OPENROUTER_BASE_URL,
     MODEL,
     MODEL_MINI,
-    LLM_TEMPERATURE,
-    LLM_TOP_P,
-    LLM_MAX_TOKENS,
 )
-from .schemas.response_models import TestScriptSchema
-
-_ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-_PROMPTS_DIR = os.path.join(_ROOT_DIR, "prompts")
-_SCHEMA_PARTS_DIR = os.path.join(_PROMPTS_DIR, "schema_parts")
-_TEST_GEN_PARTS_DIR = os.path.join(_PROMPTS_DIR, "test_gen_parts")
-_TESTER_TEMPLATES_DIR = os.path.join(_PROMPTS_DIR, "tester_templates")
-_COMMON_PROMPTS_DIR = os.path.join(_PROMPTS_DIR, "common")
+from core.utils.helpers import load_task_description, detect_language
+from core.evaluators.holistic_evaluator import HolisticEvaluator
+from core.evaluators.mental_evaluator import MentalEvaluator
+from core.evaluators.testcase_evaluator import TestcaseEvaluator
 
 
-from .mixins.evaluator_utils import EvaluatorUtilsMixin
-from .mixins.evaluator_schema import SchemaGeneratorMixin
-from .mixins.evaluator_mental import MentalExecutionMixin
-from .mixins.evaluator_legacy import LegacyExecutionMixin
-
-
-class LangChainCodeEvaluator(
-    EvaluatorUtilsMixin,
-    SchemaGeneratorMixin,
-    MentalExecutionMixin,
-    LegacyExecutionMixin,
-):
+class LangChainCodeEvaluator:
     def __init__(
         self,
         api_key: str = OPENROUTER_API_KEY,
@@ -46,23 +20,70 @@ class LangChainCodeEvaluator(
         model: str = MODEL,
         model_mini: str = MODEL_MINI,
     ):
+        root_dir = Path(__file__).resolve().parent.parent
+
         self.api_key = api_key
-        self.llm = ChatOpenAI(
-            model=model,
-            openai_api_key=api_key,
-            openai_api_base=OPENROUTER_BASE_URL,
-            temperature=LLM_TEMPERATURE,
-            max_tokens=LLM_MAX_TOKENS,
-            model_kwargs={"top_p": LLM_TOP_P},
+        self.task_description = task_description or load_task_description(root_dir)
+
+        self.holistic_eval = HolisticEvaluator(
+            api_key, self.task_description, model, model_mini
         )
-        self.llm_mini = ChatOpenAI(
-            model=model_mini,
-            openai_api_key=api_key,
-            openai_api_base=OPENROUTER_BASE_URL,
-            temperature=0,
-            model_kwargs={"top_p": LLM_TOP_P},
+        self.mental_eval = MentalEvaluator(
+            api_key, self.task_description, model, model_mini
         )
-        self.task_description = task_description or self._load_task_description()
-        self.grading_schema: Optional[Dict] = None
-        self.total_tokens = 0
-        self.total_cost = 0
+        self.testcase_eval = TestcaseEvaluator(
+            api_key, self.task_description, model, model_mini
+        )
+
+    @property
+    def total_tokens(self) -> int:
+        return (
+            self.holistic_eval.total_tokens
+            + self.mental_eval.total_tokens
+            + self.testcase_eval.total_tokens
+        )
+
+    @property
+    def total_cost(self) -> float:
+        return (
+            self.holistic_eval.total_cost
+            + self.mental_eval.total_cost
+            + self.testcase_eval.total_cost
+        )
+
+    def evaluate(
+        self,
+        student_code: str,
+        student_name: str,
+        evaluation_mode: str = "original",
+        **kwargs
+    ) -> dict:
+        if evaluation_mode == "mental":
+            return self.mental_eval.evaluate(student_code, student_name, **kwargs)
+        elif evaluation_mode == "testcases":
+            return self.testcase_eval.evaluate(student_code, student_name, **kwargs)
+        else:
+            return self.holistic_eval.evaluate(student_code, student_name, **kwargs)
+
+    def generate_grading_schema(self) -> Dict:
+        return self.testcase_eval.generate_grading_schema()
+
+    def generate_shared_test_script(self, language: str = "java") -> str:
+        return self.testcase_eval.generate_shared_test_script(language)
+
+    def evaluate_standalone(
+        self,
+        student_code: str,
+        student_name: str,
+        shared_test_script: Optional[str],
+        language: str = "java",
+    ) -> dict:
+        return self.testcase_eval.evaluate(
+            student_code,
+            student_name,
+            shared_test_script=shared_test_script,
+            language=language,
+        )
+
+    def detect_language(self, content: str = "", filename: str = "") -> str:
+        return detect_language(content, filename)
