@@ -1,0 +1,6 @@
+{
+  "[latex]": {
+    "editor.defaultFormatter": "PolarHuskyDev.intex",
+    "editor.formatOnSave": true
+  }
+}
